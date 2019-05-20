@@ -1,0 +1,9 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="title-container">
+    <text class="title">欢迎来到MyEvent</text>
+  </view>
+  <view class="usermotto">
+    <button open-type='getUserInfo' bindgetuserinfo='getUserInfo' type='primary'>开始使用</button>
+  </view>
+</view>

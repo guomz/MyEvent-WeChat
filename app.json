@@ -1,0 +1,41 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/calendar/calendar",
+    "pages/order/order",
+    "pages/home/home",
+    "pages/mine/mine",
+    "pages/search/search",
+    "pages/room-calendar/room-calendar"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#405f80",
+    "navigationBarTitleText": "MyEvent",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "/images/icons/home-anti.png",
+        "selectedIconPath": "/images/icons/home.png"
+      },
+      {
+        "pagePath": "pages/room-calendar/room-calendar",
+        "text": "预定",
+        "iconPath": "/images/icons/calendar-anti.png",
+        "selectedIconPath": "/images/icons/calendar.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "/images/icons/mine-anti.png",
+        "selectedIconPath": "/images/icons/mine.png"
+      }  
+    ]
+  }
+}

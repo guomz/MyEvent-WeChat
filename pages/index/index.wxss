@@ -1,0 +1,11 @@
+/**index.wxss**/
+.usermotto {
+  margin-top: 200px;
+}
+.title-container{
+  margin-top: 50px;
+}
+page {
+  background-color: #b3d4db;
+  height: 100%;
+}

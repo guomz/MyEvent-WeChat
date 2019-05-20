@@ -1,0 +1,51 @@
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+  <view class="page__hd">
+    <view class="page__title">预约时间:</view>
+    <view class="page__desc">{{eventDate}}</view>
+  </view>
+  <form bindsubmit='onSubmit'>
+
+    <view class="page__bd">
+
+      <view class="weui-cells__title">预约人或组织名称</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="" name='groupName' value='{{groupName}}' />
+          </view>
+        </view>
+      </view>
+
+      <view class="weui-cells__title">预约事件</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="" name='eventName' value='{{eventName}}' />
+          </view>
+        </view>
+      </view>
+
+      <view class="weui-cells__title">事件描述</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <textarea class="weui-textarea" placeholder="" style="height: 3.3em" name='eventDetail' value='{{eventDetail}}' />
+            <view class="weui-textarea-counter"></view>
+          </view>
+        </view>
+      </view>
+
+
+      <view class="weui-btn-area">
+        <block wx:if="{{isOrder==1}}">
+          <button class="weui-btn" type="primary" form-type='submit'>提交预约</button>
+        </block>
+        <block wx:else if="{{isOrder==0}}">
+          <button class="weui-btn" type="primary" form-type='submit'>应用变更</button>
+          <button class="weui-btn" type="warn" bindtap='onDelete'>删除该事件</button>
+        </block>
+      </view>
+    </view>
+  </form>
+
+</view>

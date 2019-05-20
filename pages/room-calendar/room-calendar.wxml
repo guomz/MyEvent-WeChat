@@ -1,0 +1,52 @@
+<view class='wrap'>
+  <view>
+    <view class='date-show'>
+      <view class='lt-arrow' bindtap='lastMonth'>
+        <image src='/images/icons/left.png' mode='aspectFit'></image>
+      </view>
+      {{year}}年{{month}}月
+      <view class='rt-arrow' bindtap='nextMonth'>
+        <image src='/images/icons/right.png' mode='aspectFit'></image>
+      </view>
+    </view>
+  </view>
+  <view class='header'>
+    <view wx:for='{{date}}' class=''>{{item}}
+      <view></view>
+    </view>
+  </view>
+  <view class='date-box'>
+    <view wx:for='{{dateArr}}' class='{{item.isTap? "isTap" : ""}}' data-date='{{item.isToday}}' data-event='{{item.event}}' data-hasevent='{{item.hasEvent}}' bindtap='onTap'>
+      <view class='date-head'>
+        <view>{{item.dateNum}}</view>
+      </view>
+      <!-- <view class='date-weight'>{{item.weight}}</view> -->
+    </view>
+  </view>
+
+  <!--事件说明-->
+  <view class="page__bd">
+    <view class="weui-form-preview">
+      <view class="weui-form-preview__hd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">当前日期</view>
+          <view class="weui-form-preview__value_in-hd">{{isToday}}</view>
+        </view>
+      </view>
+    </view>
+    <!--直接显示当日计划-->
+    <view class="weui-cells weui-cells_after-title">
+      <block wx:for="{{roomList}}">
+        <navigator url="/pages/order/order?eventDate={{isToday}}&roomId={{item.roomId}}&isOrder=1" class="weui-cell weui-cell_access"
+          hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="/images/icons/meeting.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          </view>
+          <view class="weui-cell__bd">{{item.roomName}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">去预约</view>
+        </navigator>
+      </block>
+    </view>
+  </view>
+
+</view>

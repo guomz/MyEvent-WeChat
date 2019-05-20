@@ -1,0 +1,41 @@
+<!--pages/home/home.wxml-->
+<view class='container'>
+  <!--首页通知-->
+  <swiper indicator-dots='true' autoplay='true' catchtap='onSwiperTap'>
+    <swiper-item>
+      <image src='/images/wx.png' data-postid='3'></image>
+    </swiper-item>
+    <swiper-item>
+      <image src='/images/vr.png' data-postid='4'></image>
+    </swiper-item>
+    <swiper-item>
+      <image src='/images/iqiyi.png' data-postid='5'></image>
+    </swiper-item>
+  </swiper>
+
+  <!--会议室显示-->
+  <view class="weui-panel weui-panel_access">
+    <view class="weui-cells__title">会议室一览</view>
+    <view class="weui-cells weui-cells_after-title">
+      <block wx:for='{{roomList}}'>
+        <navigator url="/pages/calendar/calendar?roomId={{item.roomId}}&userId={{userId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="/images/icons/meeting.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          </view>
+          <view class="weui-cell__bd">{{item.roomName}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">去预约</view>
+        </navigator>
+      </block>
+    </view>
+
+    <view class="weui-panel__ft">
+      <view class="weui-cell weui-cell_access weui-cell_link">
+        <view class="weui-cell__bd" bindtap='onTap'>查看更多</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </view>
+    </view>
+
+  </view>
+
+
+</view>

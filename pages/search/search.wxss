@@ -1,0 +1,17 @@
+/* pages/more/more.wxss */
+.container{
+  padding-top: 0rpx;
+  padding-bottom: 0rpx;
+}
+
+.weui-search-bar{
+  width: 100%;
+}
+
+.weui-panel{
+  width: 100%;
+}
+
+.room-container{
+  height: 1000rpx;
+}
