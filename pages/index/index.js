@@ -63,12 +63,24 @@ Page({
           },
           success: function (res) {
             if (res.data.success) {
-              app.globalData.openid = res.data.openid;
-              app.globalData.userId = res.data.userId;
-              //跳转到有tab的页面
-              wx.switchTab({
-                url: '/pages/home/home',
-              })
+              if(res.data.loginFlag)
+              {
+                app.globalData.openid = res.data.openid;
+                app.globalData.userId = res.data.userId;
+                app.globalData.userType = res.data.userType;
+                //跳转到有tab的页面
+                wx.switchTab({
+                  url: '/pages/home/home',
+                });
+              }
+              else
+              {
+                wx.showToast({
+                  title: '登陆失败，请联系管理员进行认证注册',
+                  icon:'none'
+                });
+              }
+             
             }
 
           }

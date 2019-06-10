@@ -1,0 +1,6 @@
+/* pages/qrcode/qrcode.wxss */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+}

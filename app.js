@@ -37,7 +37,7 @@ App({
     userInfo: null,
     //测试使用默认为1
     userId:1,
-    baseUrl: 'http://39.105.145.179/MyMOOC'
-    //baseUrl: "http://127.0.0.1/MyMOOC"
+    baseUrl:'https://www.cvnis.net:8443/MyMOOCFinal-0.0.1-SNAPSHOT'
+    //baseUrl: "http://127.0.0.1"
   }
 })

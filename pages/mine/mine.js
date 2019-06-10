@@ -9,6 +9,7 @@ Page({
     getEventListUrl:'/calendar/getmyeventlist',
     userInfo:{},
     eventList:{},
+    userType:1,
     userId:null
   },
 
@@ -20,24 +21,9 @@ Page({
     var userId=app.globalData.userId;
     this.setData({
       userInfo:userInfo,
-      userId:userId
+      userId:userId,
+      userType:app.globalData.userType
     });
-    // var that=this;
-    // var baseUrl=app.globalData.baseUrl;
-    // wx.request({
-    //   url: baseUrl+this.data.getEventListUrl,
-    //   data:{
-    //     userId:this.data.userId
-    //   },
-    //   success:function(res){
-    //     if(res.data.success)
-    //     {
-    //       that.setData({
-    //         eventList:res.data.eventList
-    //       });
-    //     }
-    //   }
-    // });
   },
 
   /**
@@ -51,7 +37,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log("onshow")
+    //console.log("onshow")
     var that = this;
     var baseUrl = app.globalData.baseUrl;
     wx.request({
@@ -102,5 +88,15 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+/**
+ * 邀请注册时跳转到二维码页面
+ */
+  register:function(){
+    wx.navigateTo({
+      url: '/pages/qrcode/qrcode',
+     //url:'/pages/register/register'
+    });
   }
 })

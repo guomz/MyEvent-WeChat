@@ -1,0 +1,28 @@
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+  <view class="page__hd" wx:if='{{hasUserInfo}}'>
+    <view class="page__title">用户注册</view>
+    <view class="page__desc">用户名请询问管理员</view>
+  </view>
+  <form bindsubmit='onSubmit'>
+
+    <view class="page__bd" wx:if='{{hasUserInfo}}'>
+
+      <view class="weui-cells__title">用户名</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="" name='userName' value='{{userName}}' />
+          </view>
+        </view>
+      </view>
+      <view class="weui-btn-area">    
+        <button class="weui-btn" type="primary" form-type='submit'>认证</button>
+      </view>
+    </view>
+  </form>
+
+  <view wx:if='{{!hasUserInfo}}' class='userInfo-btn'>
+    <button class="weui-btn" type="primary" open-type='getUserInfo' bindgetuserinfo='getUserInfo'>提供用户权限</button>
+  </view>
+
+</view>

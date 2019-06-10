@@ -25,6 +25,17 @@
         </view>
       </view>
 
+      <view class="weui-cells__title">可选时段</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__bd">
+            <picker bindchange="bindTimeChange" value="{{timeIndex}}" range="{{timeNameList}}">
+              <view class="weui-select">{{timeNameList[timeIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+
       <view class="weui-cells__title">事件描述</view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
@@ -38,17 +49,7 @@
 
       <view class="weui-btn-area">
         <!--预定-->
-        <block wx:if="{{isOrder==1}}">
-          <button class="weui-btn" type="primary" form-type='submit' disabled='{{canClick}}'>提交预约</button>
-        </block>
-        <!--更新-->
-        <block wx:elif="{{isOrder==0}}">
-          <button class="weui-btn" type="primary" form-type='submit' disabled='{{canClick}}'>应用变更</button>
-          <button class="weui-btn" type="warn" bindtap='onDelete' disabled='{{canClick}}'>删除该事件</button>
-        </block>
-        <!--查看-->
-        <block wx:else>
-        </block>
+        <button class="weui-btn" type="primary" form-type='submit'>提交预约</button>
       </view>
     </view>
   </form>

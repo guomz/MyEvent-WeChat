@@ -96,6 +96,97 @@
     background-color: #D0D0D0;
     margin: 0 auto;
 }
+
+.morning .date-weight{
+  color: rgb(255, 0, 0)
+}
+
+.morning .date-head{
+  width: 60rpx;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    background-color: rgb(255, 0, 0);
+    margin: 0 auto;
+}
+
+.afternoon .date-weight{
+  color: rgb(0, 255, 0)
+}
+
+.afternoon .date-head{
+  width: 60rpx;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    background-color: rgb(0, 255, 0);
+    margin: 0 auto;
+}
+
+.evening .date-weight{
+  color: rgb(0, 0, 255)
+}
+
+.evening .date-head{
+  width: 60rpx;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    background-color: rgb(0, 0, 255);
+    margin: 0 auto;
+}
+
+.morning_afternoon .date-weight{
+  color: rgb(255, 255, 0)
+}
+
+.morning_afternoon .date-head{
+  width: 60rpx;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    background-color: rgb(255, 255, 0);
+    margin: 0 auto;
+}
+
+.morning_evening .date-weight{
+  color: rgb(255, 0, 255)
+}
+
+.morning_evening .date-head{
+  width: 60rpx;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    background-color: rgb(255, 0, 255);
+    margin: 0 auto;
+}
+
+.afternoon_evening .date-weight{
+  color: rgb(0, 255, 255)
+}
+
+.afternoon_evening .date-head{
+  width: 60rpx;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    background-color: rgb(0, 255, 255);
+    margin: 0 auto;
+}
+
+.morning_afternoon_evening .date-weight{
+  color: rgb(0, 0, 0)
+}
+
+.morning_afternoon_evening .date-head{
+  width: 60rpx;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    background-color: rgb(0, 0, 0);
+    margin: 0 auto;
+}
 .one{
     position: absolute;
     bottom: 0;
@@ -117,4 +208,5 @@
 
 .event_container{
   padding-top: 0rpx;
+  padding-bottom: 20rpx;
 }

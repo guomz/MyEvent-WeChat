@@ -18,8 +18,8 @@ Page({
     ],
     //是否显示事件安排
     eventShow:false,
-    //当前事件，用于底部显示
-    nowEvent:{}
+    //当前事件数组，用于底部显示
+    nowEvent:new Array(3)
   },
   onLoad: function (options) {
     //console.log(options)
@@ -55,26 +55,72 @@ Page({
     for (let i = 0; i < arrLen; i++) {
       if (i >= startWeek) {
         num = i - startWeek + 1;
-        //安排对象
+        //安排对象，由于一天存在三个时段，所以对象包含事件数组
         obj = {
           isToday: '' + year +'-'+ (month + 1) +'-'+ num,
           dateNum: num,
           weight: 5,
+          //时段标识，无事件0，上午1，下午3，晚上5，上午下午则为4，下午晚上则为8，以此类推
+          eventFlag:0,
+          //事件颜色，使用css样式的名称，默认为空
+          eventColor:'',
           //是否有安排
           hasEvent:false,
           //存放event对象
-          event:'',
+          event:new Array(3),
           //是否被点击
           isTap:false
         }
        //遍历事件数组
         for (var j = 0; j < eventList.length;j++)
         {
+          //首先判断日期
           if (obj.isToday == eventList[j].eventDate)
           {
+            //日期相同则判断时间段
+            if(eventList[j].eventTime==0)
+            {
+              obj.event[0]=eventList[j];
+              obj.eventFlag=obj.eventFlag+1;
+            }
+            else if(eventList[j].eventTime==1)
+            {
+              obj.event[1]=eventList[j];
+              obj.eventFlag = obj.eventFlag + 3;
+            }
+            else if(eventList[j].eventTime==2)
+            {
+              obj.event[2]=eventList[j];
+              obj.eventFlag = obj.eventFlag + 5;
+            }
             obj.hasEvent=true;
-            obj.event = eventList[j];
+            //obj.event = eventList[j];
           }
+        }
+        //一个日期遍历完成后进行颜色的判断
+        if(obj.eventFlag==1)
+        {
+          obj.eventColor='morning';
+        }
+        else if(obj.eventFlag==3)
+        {
+          obj.eventColor='afternoon';
+        }
+        else if (obj.eventFlag==5)
+        {
+          obj.eventColor='evening';
+        }
+        else if (obj.eventFlag == 4) {
+          obj.eventColor = 'morning_afternoon';
+        }
+        else if (obj.eventFlag == 6) {
+          obj.eventColor = 'morning_evening';
+        }
+        else if (obj.eventFlag == 8) {
+          obj.eventColor = 'afternoon_evening';
+        }
+        else if (obj.eventFlag == 9) {
+          obj.eventColor = 'morning_afternoon_evening';
         }
       } else {
         obj = {};
@@ -111,6 +157,9 @@ Page({
    // console.log('onShow')
     var that = this;
     var baseUrl = app.globalData.baseUrl;
+    // wx.showLoading({
+    //   title: '加载中',
+    // });
     wx.request({
       url: baseUrl + this.data.getEventListUrl,
       data: {
@@ -118,7 +167,7 @@ Page({
       },
       success: function (res) {
         if (res.data.success) {
-          //console.log(res.data.eventList)
+          console.log(res.data.eventList)
           that.setData({
             eventList: res.data.eventList
           });
@@ -141,22 +190,44 @@ Page({
                   eventShow: true,
                   nowEvent: dateArr[i].event
                 });
+                var nowEvent = that.data.nowEvent;
+                for (let i = 0; i < nowEvent.length; i++) {
+                  if (nowEvent[i] == null) {
+                    nowEvent[i] = {
+                      eventDate: that.data.isToday
+                    }
+                  }
+                }
+                that.setData({
+                  nowEvent: nowEvent
+                });
               }
               else {
                 dateArr[i].isTap = true;
                 that.setData({
                   eventShow:false,
-                  nowEvent: {
-                    eventDate: dateArr[i].isToday
-                  }
+                  nowEvent:[
+                    {
+                      eventDate: dateArr[i].isToday
+                    },
+                    {
+                      eventDate: dateArr[i].isToday
+                    },
+                    {
+                      eventDate: dateArr[i].isToday
+                    }
+                  ]
+                 
                 });
                 break;
               }
             }
           }
+         // console.log(dateArr);
           that.setData({
             dateArr: dateArr
           });
+          //wx.hideLoading();
         }
        
       }
@@ -203,7 +274,8 @@ Page({
     }
     //刷新页面数据
     this.setData({
-      dateArr:dateArr
+      dateArr:dateArr,
+      isToday:e.currentTarget.dataset.date
     });
     //重新找到选中日期
     for(var i=0;i<dateArr.length;i++)
@@ -226,14 +298,35 @@ Page({
         eventShow:true,
         nowEvent:e.currentTarget.dataset.event
       });
+      var nowEvent=this.data.nowEvent;
+      for(let i=0;i<nowEvent.length;i++)
+      {
+        if(nowEvent[i]==null)
+        {
+          nowEvent[i]={
+            eventDate:e.currentTarget.dataset.date
+          }
+        }
+      }
+      this.setData({
+        nowEvent:nowEvent
+      });
     }
     else
     {
       this.setData({
         eventShow:false,
-        nowEvent:{
-          eventDate: e.currentTarget.dataset.date
-        }
+        nowEvent:[
+          {
+            eventDate: e.currentTarget.dataset.date
+          },
+          {
+            eventDate: e.currentTarget.dataset.date
+          },
+          {
+            eventDate: e.currentTarget.dataset.date
+          }
+        ]
       });
     }
   }

@@ -16,7 +16,7 @@
     </view>
   </view>
   <view class='date-box'>
-    <view wx:for='{{dateArr}}' class='{{item.hasEvent ? "nowDay" : (item.isTap? "isTap" : "")}}' data-date='{{item.isToday}}' data-event='{{item.event}}' data-hasevent='{{item.hasEvent}}' bindtap='onTap'>
+    <view wx:for='{{dateArr}}' class='{{item.isTap ? "isTap" : (item.hasEvent? (item.eventColor) : "")}}' data-date='{{item.isToday}}' data-event='{{item.event}}' data-hasevent='{{item.hasEvent}}' bindtap='onTap'>
       <view class='date-head'>
         <view>{{item.dateNum}}</view>
       </view>
@@ -26,50 +26,100 @@
 
   <!--事件说明-->
   <view class='event_container'>
-    <!--有人预约-->
-    <block wx:if="{{eventShow}}">
-      <view class="weui-form-preview">
-        <view class="weui-form-preview__hd">
-          <view class="weui-form-preview__label">预约人或组织</view>
-          <view class="weui-form-preview__value_in-hd">{{nowEvent.groupName}}</view>
-        </view>
-        <view class="weui-form-preview__bd">
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">时间</view>
-            <view class="weui-form-preview__value">{{nowEvent.eventDate}}</view>
+    <view class="weui-cells__title">预约情况 {{isToday}}</view>
+    <view class="weui-cells weui-cells_after-title">
+      <!--上午-->
+      <block wx:if='{{userId==nowEvent[0].userId}}'>
+        <navigator url="/pages/order/order?isOrder=0&eventName={{nowEvent[0].eventName}}&eventDetail={{nowEvent[0].eventDetail}}&groupName={{nowEvent[0].groupName}}&eventId={{nowEvent[0].eventId}}&eventDate={{nowEvent[0].eventDate}}&roomId={{roomId}}&eventTime=0" class="weui-cell weui-cell_access"
+          hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="/images/icons/morning.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
           </view>
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">预约事件</view>
-            <view class="weui-form-preview__value">{{nowEvent.eventName}}</view>
+          <view class="weui-cell__bd">{{nowEvent[0]? nowEvent[0].eventName:"无人预约"}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">查看并修改</view>
+        </navigator>
+      </block>
+      <block wx:elif='{{!nowEvent[0].userId}}'>
+        <navigator url="/pages/order/order?isOrder=1&eventDate={{nowEvent[0].eventDate}}&roomId={{roomId}}&eventTime=0" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="/images/icons/morning.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
           </view>
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label">事件描述</view>
-            <view class="weui-form-preview__value">{{nowEvent.eventDetail}}</view>
+          <view class="weui-cell__bd">无人预约</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">去预约</view>
+        </navigator>
+      </block>
+      <block wx:else>
+        <navigator url="/pages/order/order?isOrder=2&eventName={{nowEvent[0].eventName}}&eventDetail={{nowEvent[0].eventDetail}}&groupName={{nowEvent[0].groupName}}&eventId={{nowEvent[0].eventId}}&eventDate={{nowEvent[0].eventDate}}&roomId={{roomId}}&eventTime=0" class="weui-cell weui-cell_access"
+          hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="/images/icons/morning.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
           </view>
-        </view>
-        <!--自己预约的事件可以修改或撤销-->
-        <block wx:if="{{nowEvent.userId==userId}}">
-          <view class="weui-form-preview__ft">
-             <navigator url='/pages/order/order?eventName={{nowEvent.eventName}}&eventDetail={{nowEvent.eventDetail}}&eventId={{nowEvent.eventId}}&eventDate={{nowEvent.eventDate}}&groupName={{nowEvent.groupName}}&isOrder=0&roomId={{roomId}}' class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">去修改</navigator>
+          <view class="weui-cell__bd">{{nowEvent[0]? nowEvent[0].eventName:"无人预约"}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">查看</view>
+        </navigator>
+      </block>
+      <!--下午-->
+      <block wx:if='{{userId==nowEvent[1].userId}}'>
+        <navigator url="/pages/order/order?isOrder=0&eventName={{nowEvent[1].eventName}}&eventDetail={{nowEvent[1].eventDetail}}&groupName={{nowEvent[1].groupName}}&eventId={{nowEvent[1].eventId}}&eventDate={{nowEvent[1].eventDate}}&roomId={{roomId}}&eventTime=1" class="weui-cell weui-cell_access"
+          hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="/images/icons/afternoon.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
           </view>
-        </block>
-      </view>
-    </block>
-    <!--无人预约-->
-    <block wx:else>
-      <view class="weui-form-preview">
-        <view class="weui-form-preview__hd">
-          <view class="weui-form-preview__item">
-            <view class="weui-form-preview__label no-event-title">无人预约</view>
-            <view class="weui-form-preview__value_in-hd"></view>
+          <view class="weui-cell__bd">{{nowEvent[1]? nowEvent[1].eventName:"无人预约"}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">查看并修改</view>
+        </navigator>
+      </block>
+      <block wx:elif='{{!nowEvent[1].userId}}'>
+        <navigator url="/pages/order/order?isOrder=1&eventDate={{nowEvent[1].eventDate}}&roomId={{roomId}}&eventTime=1" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="/images/icons/afternoon.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
           </view>
-        </view>
-        <view class="weui-form-preview__ft">
-          <navigator url="/pages/order/order?eventDate={{nowEvent.eventDate}}&isOrder=1&roomId={{roomId}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">去预约</navigator>
-        </view>
-      </view>
-    </block>
-
+          <view class="weui-cell__bd">无人预约</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">去预约</view>
+        </navigator>
+      </block>
+      <block wx:else>
+        <navigator url="/pages/order/order?isOrder=2&eventName={{nowEvent[1].eventName}}&eventDetail={{nowEvent[1].eventDetail}}&groupName={{nowEvent[1].groupName}}&eventId={{nowEvent[1].eventId}}&eventDate={{nowEvent[1].eventDate}}&roomId={{roomId}}&eventTime=1" class="weui-cell weui-cell_access"
+          hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="/images/icons/afternoon.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          </view>
+          <view class="weui-cell__bd">{{nowEvent[1]? nowEvent[1].eventName:"无人预约"}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">查看</view>
+        </navigator>
+      </block>
+      <!--晚上-->
+      <block wx:if='{{userId==nowEvent[2].userId}}'>
+        <navigator url="/pages/order/order?isOrder=0&eventName={{nowEvent[2].eventName}}&eventDetail={{nowEvent[2].eventDetail}}&groupName={{nowEvent[2].groupName}}&eventId={{nowEvent[2].eventId}}&eventDate={{nowEvent[2].eventDate}}&roomId={{roomId}}&eventTime=2" class="weui-cell weui-cell_access"
+          hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="/images/icons/evening.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          </view>
+          <view class="weui-cell__bd">{{nowEvent[2]? nowEvent[2].eventName:"无人预约"}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">查看并修改</view>
+        </navigator>
+      </block>
+      <block wx:elif='{{!nowEvent[2].userId}}'>
+        <navigator url="/pages/order/order?isOrder=1&eventDate={{nowEvent[2].eventDate}}&roomId={{roomId}}&eventTime=2" class="weui-cell weui-cell_access"
+          hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="/images/icons/evening.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          </view>
+          <view class="weui-cell__bd">无人预约</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">去预约</view>
+        </navigator>
+      </block>
+      <block wx:else>
+        <navigator url="/pages/order/order?isOrder=2&eventName={{nowEvent[2].eventName}}&eventDetail={{nowEvent[2].eventDetail}}&groupName={{nowEvent[2].groupName}}&eventId={{nowEvent[2].eventId}}&eventDate={{nowEvent[2].eventDate}}&roomId={{roomId}}&eventTime=2" class="weui-cell weui-cell_access"
+          hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="/images/icons/evening.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          </view>
+          <view class="weui-cell__bd">{{nowEvent[2]? nowEvent[2].eventName:"无人预约"}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">查看</view>
+        </navigator>
+      </block>
+    </view>
   </view>
 
 </view>

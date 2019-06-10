@@ -9,7 +9,7 @@
     <view class="weui-cells__title">我的预约</view>
     <view class="weui-cells weui-cells_after-title">
       <block wx:for='{{eventList}}'>
-        <navigator url="/pages/order/order?eventName={{item.eventName}}&eventDetail={{item.eventDetail}}&eventId={{item.eventId}}&eventDate={{item.eventDate}}&groupName={{item.groupName}}&isOrder=0&roomId={{event.roomId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <navigator url="/pages/order/order?eventName={{item.eventName}}&eventDetail={{item.eventDetail}}&eventId={{item.eventId}}&eventDate={{item.eventDate}}&groupName={{item.groupName}}&isOrder=0&roomId={{event.roomId}}&eventTime={{item.eventTime}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
           <view class="weui-cell__hd">
             <image src="/images/icons/meeting.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
           </view>
@@ -19,6 +19,10 @@
       </block>
     </view>
 
+    <!--注册按钮-->
+    <view class='button-container' wx:if='{{userType==0}}'>
+      <button class="weui-btn" type="primary" bindtap='register'>邀请注册</button>
+    </view>
   </view>
 
 </view>

@@ -16,7 +16,10 @@ Page({
     eventId:null,
     roomId:null,
     //用于标识更新或插入
-    isOrder:null
+    isOrder:null,
+    eventTime:null,
+    //按钮禁用，默认false为可用，当进行提交或删除操作后禁用
+    canClick:false
   },
 
   /**
@@ -24,9 +27,9 @@ Page({
    */
   onLoad: function (options) {
     console.log(options);
-    if(options.isOrder==0)
+    if(options.isOrder==0||options.isOrder==2)
     {
-      console.log('is update')
+      //console.log('is update')
       this.setData({
         eventName: options.eventName,
         eventDetail: options.eventDetail,
@@ -37,7 +40,8 @@ Page({
     this.setData({
       eventDate:options.eventDate,
       isOrder:options.isOrder,
-      roomId:options.roomId
+      roomId:options.roomId,
+      eventTime:options.eventTime
     });
   },
 
@@ -139,7 +143,8 @@ Page({
               eventDetail: e.detail.value.eventDetail,
               groupName:e.detail.value.groupName,
               eventDate: that.data.eventDate,
-              userId:app.globalData.userId
+              userId:app.globalData.userId,
+              eventTime:that.data.eventTime
             },
             success:function(res){
               if(res.data.success)
@@ -147,20 +152,26 @@ Page({
                 wx.showToast({
                   title: '操作成功',
                 });
-                
+                that.setData({
+                  canClick:true
+                });
               }
               else
               {
                 wx.showToast({
                   title: res.data.errMsg,
                 });
-               
+                that.setData({
+                  canClick: true
+                });
               }
             }
-          })
-          wx.navigateBack({
-            delta: 1
           });
+          setTimeout(function () {
+            wx.navigateBack({
+              delta: 1
+            });
+          }, 3000);
         }
       }
     });
@@ -191,13 +202,20 @@ Page({
                     
                   }
                 });
-               
+                that.setData({
+                  canClick: true
+                });
               }
             }
           });
-          wx.navigateBack({
-            delta: 1
-          });
+          setTimeout(function(){
+            wx.navigateBack({
+              delta:1
+            });
+          },3000);
+          // wx.navigateBack({
+          //   delta: 1
+          // });
         } else if (res.cancel) {
           //console.log('用户点击取消')
           //点击取消不做处理
